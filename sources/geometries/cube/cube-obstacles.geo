@@ -120,3 +120,7 @@ If (!Exists(s)) s = 0.07; EndIf
       Physical Surface{22}
     };
   }
+
+// Setting the appropriate mesh format
+Mesh.Format=1;
+Mesh.MshFileVersion = 2.2;

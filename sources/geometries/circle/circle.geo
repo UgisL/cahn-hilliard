@@ -19,3 +19,7 @@ lloop = newreg; Line Loop(lloop) = {lines[1],lines[2],lines[3],lines[4]};
 Plane Surface(1) = {lloop};
 Physical Surface(1) = {1};
 Physical Line(1) = {lines[]};
+
+// Setting the appropriate mesh format
+Mesh.Format=1;
+Mesh.MshFileVersion = 2.2;

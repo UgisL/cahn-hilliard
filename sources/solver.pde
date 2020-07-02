@@ -150,10 +150,7 @@
 load "gmsh"
 load "isoline"
 load "UMFPACK64"
-
-#if DIMENSION == 2
 load "iovtk"
-#endif
 
 #if DIMENSION == 3
 load "medit"
@@ -795,6 +792,17 @@ for(int i = i0; i <= nIter && time <= tMax; i++)
     #endif
     #endif
 
+    // Output to a joint vtk
+    savevtk("output/vtk/out_"+i+".vtk",Th,phiOld,muOld,dataname="cvar phivar");
+    #ifdef SOLVER_NAVIER_STOKES
+    #if DIMENSION == 2
+    savevtk("output/vtk/out_"+i+".vtk",Th,[u,v],p,phiOld,muOld,dataname="velocity pressure cvar phivar");
+    #endif
+    #if DIMENSION == 3
+    savevtk("output/vtk/out_"+i+".vtk",Th,[u,v,w],p,phiOld,muOld,dataname="velocity pressure cvar phivar");
+    #endif
+    #endif
+    
     #ifdef SOLVER_MESH_ADAPTATION
     savemeshgmsh("output/mesh/mesh-" + i + ".msh", Vh, Th);
     #if SOLVER_POLYNOMIAL_ORDER == 2

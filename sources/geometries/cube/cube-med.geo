@@ -114,3 +114,7 @@ Color Gray
     Physical Surface{4}
   };
 }
+
+// Setting the appropriate mesh format
+Mesh.Format=1;
+Mesh.MshFileVersion = 2.2;

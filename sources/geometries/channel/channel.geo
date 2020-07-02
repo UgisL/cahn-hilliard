@@ -70,3 +70,7 @@ Geometry.Lines = 1;
 Geometry.LineNumbers = 2;
 Geometry.Surfaces = 1;
 Geometry.SurfaceNumbers = 2;
+
+// Setting the appropriate mesh format
+Mesh.Format=1;
+Mesh.MshFileVersion = 2.2;

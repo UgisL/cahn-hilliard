@@ -95,3 +95,7 @@ Translate {Lx/2., Ly/2., 0.} {
 Geometry.LabelType = 2;
 Geometry.Surfaces = 1;
 Geometry.SurfaceNumbers = 2;
+
+// Setting the appropriate mesh format
+Mesh.Format=1;
+Mesh.MshFileVersion = 2.2;

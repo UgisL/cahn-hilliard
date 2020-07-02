@@ -52,3 +52,7 @@ Geometry.SurfaceNumbers = 2;
 /* Mesh.NbPartitions = 10; */
 /* Mesh.MshFilePartitioned = 2; // Add physical label for each region */
 Mesh.MshFilePartitioned = 0; // Do not change physical label
+
+// Setting the appropriate mesh format
+Mesh.Format=1;
+Mesh.MshFileVersion = 2.2;
