@@ -172,6 +172,8 @@ system("mkdir -p" + " output/done"
                   + " output/phi"
                   + " output/mu"
                   + " output/iso"
+                  + " output/vtk"
+                  + " output/ff"
                   #ifdef SOLVER_NAVIER_STOKES
                   + " output/velocity"
                   + " output/u"
@@ -776,11 +778,12 @@ for(int i = i0; i <= nIter && time <= tMax; i++)
         isoline(Th, phi, xy, close=false, iso=0.0, smoothing=0.1, file="output/iso/contactLine"+i+".dat");
     #endif
 
+    #ifdef OUTPUT_GMSH
+
     savegmsh("output/phi/phi-" + i + ".msh", "Cahn-Hilliard", time, i, phiOld);
     savegmsh("output/mu/mu-" + i + ".msh", "Chemical potential", time, i, muOld);
     savefreefem("output/phi/phi-" + i + ".txt", phiOld);
     savefreefem("output/mu/mu-" + i + ".txt", muOld);
-
     #ifdef SOLVER_NAVIER_STOKES
     savegmsh("output/pressure/pressure-" + i + ".msh", "Pressure", time, i, p);
     SAVEGMSHVEC(DIMENSION)("output/velocity/velocity-" + i + ".msh", "Velocity field", time, i, UVEC);
@@ -789,17 +792,6 @@ for(int i = i0; i <= nIter && time <= tMax; i++)
     savefreefem("output/v/v-" + i + ".txt", v);
     #if DIMENSION == 3
     savefreefem("output/w/w-" + i + ".txt", w);
-    #endif
-    #endif
-
-    // Output to a joint vtk
-    savevtk("output/vtk/out_"+i+".vtk",Th,phiOld,muOld,dataname="cvar phivar");
-    #ifdef SOLVER_NAVIER_STOKES
-    #if DIMENSION == 2
-    savevtk("output/vtk/out_"+i+".vtk",Th,[u,v],p,phiOld,muOld,dataname="velocity pressure cvar phivar");
-    #endif
-    #if DIMENSION == 3
-    savevtk("output/vtk/out_"+i+".vtk",Th,[u,v,w],p,phiOld,muOld,dataname="velocity pressure cvar phivar");
     #endif
     #endif
     
@@ -818,6 +810,35 @@ for(int i = i0; i <= nIter && time <= tMax; i++)
           );
     #endif
     // ! phi[]
+    #endif
+
+    #ifdef OUTPUT_VTK
+    savevtk("output/vtk/out_"+i+".vtk",Th,phiOld,muOld,dataname="cvar phivar");
+    #ifdef SOLVER_NAVIER_STOKES
+    #if DIMENSION == 2
+    savevtk("output/vtk/out_"+i+".vtk",Th,[u,v],p,phiOld,muOld,dataname="velocity pressure cvar phivar");
+    #endif
+    #if DIMENSION == 3
+    savevtk("output/vtk/out_"+i+".vtk",Th,[u,v,w],p,phiOld,muOld,dataname="velocity pressure cvar phivar");
+    #endif
+    #endif
+    #endif
+
+    #ifdef OUTPUT_FF
+    {
+        savemesh(Th,"output/ff/out_"+i+".msh");
+        ofstream resfile("output/ff/out_"+i+".dat");
+        resfile << phiOld[]; resfile << muOld[];
+        #ifdef SOLVER_NAVIER_STOKES
+        resfile << u[]; resfile << v[];
+        #if DIMENSION == 3
+        resfile << w[];
+        #endif
+        resfile << p[];
+        #endif
+    }
+    #endif    
+
 
     cout << "Save data to files and stdout: " << tic() << endl;
   }

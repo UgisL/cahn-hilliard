@@ -26,6 +26,9 @@
 #define SOLVER_CN 1e-2
 #define SOLVER_WE 1
 
+// Output parameters (OUTPUT_GMSH, OUTPUT_VTK, OUTPUT_FF)
+#define OUTPUT_VTK
+
 #define PLOT_FLAGS --parallel --step 10 --flow --extension "pdf"
 // #define SOLVER_PE = 100
 

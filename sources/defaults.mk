@@ -86,3 +86,10 @@ plot_program = PLOT_PROGRAM
 #define PLOT_FLAGS
 #endif
 plot_flags = PLOT_FLAGS
+
+// VTK file output
+#define OUTPUT_VTK
+// GMSH file output
+// #define OUTPUT_GMSH
+// FF native file output
+// #define OUTPUT_FF

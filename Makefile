@@ -41,7 +41,7 @@ select :
 #  Set up environment for test  #
 #################################
 link :
-	mkdir -p $(addprefix tests/$(problem)/, output output/vtk pictures logs);
+	mkdir -p $(addprefix tests/$(problem)/, output pictures logs);
 	ln -srft tests/$(problem) sources/Makefile
 	find inputs -name "*.h" -regex $(regex) -printf "%P\\n" | gawk -f sources/bin/list_inputs.awk | \
 		grep -Fx -A9 "$(problem)" | sed -n '2,/^$$/p' > tests/$(problem)/config.h
