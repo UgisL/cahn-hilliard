@@ -8,7 +8,9 @@ endif
 live     = .bunches/.installed
 bunch   ?= $(shell test -s $(live) && cat $(live) || echo default)
 problem ?= $(shell test -s .bunches/.installed-$(bunch) && cat .bunches/.installed-$(bunch) || head -1 .bunches/$(bunch))
-fzf     ?= sources/bin/fzf-0.16.3-linux_386
+# fzf     ?= sources/bin/fzf-0.16.3-linux_386
+# fzf     ?= sources/bin/fzf-0.20.0-linux_x86_64
+fzf     ?= fzf
 
 ###################
 #  Install bunch  #
